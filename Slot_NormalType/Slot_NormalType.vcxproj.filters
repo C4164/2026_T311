@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="10_Core">
+      <UniqueIdentifier>{ca0b319e-cd19-4eb0-8498-48145317338e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Resource">
+      <UniqueIdentifier>{9c32c8cd-ac3a-42a6-b840-bd42556069ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00_App">
+      <UniqueIdentifier>{6fd9ba93-970b-4848-b794-a2c0138a4269}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="30_GamePlay">
+      <UniqueIdentifier>{23319d94-2cb1-40c6-9422-dbf57f21e91b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10_Core\Math">
+      <UniqueIdentifier>{61dea1de-fbd2-445a-b60b-0f1e96deedc2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>00_App</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>10_Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Flag.cpp">
+      <Filter>30_GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="Render.cpp">
+      <Filter>10_Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GameContext.cpp">
+      <Filter>10_Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Input.h">
+      <Filter>10_Core</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowManager.h">
+      <Filter>10_Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Flag.h">
+      <Filter>30_GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>10_Core\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Render.h">
+      <Filter>10_Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GameContext.h">
+      <Filter>10_Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Consts.h">
+      <Filter>10_Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
