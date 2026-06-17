@@ -16,7 +16,8 @@ void Flag::Init()
 
 MinorPrize Flag::FlagUp()
 {
-	MinorPrize mp = bell;
+
+	MinorPrize mp = Const::bell;
 
 	return mp;
 }

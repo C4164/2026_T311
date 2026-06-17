@@ -2,6 +2,18 @@
 
 namespace Const
 {
+	//小役の種類
+	constexpr enum MinorPrize
+	{
+		bell,			//ベル
+		replay,			//リプレイ
+		chance,			//チャンス目
+		melon_weakness,	//弱スイカ
+		melon_strength,	//強スイカ
+		cherry_weakness,//弱チェリー
+		cherry_strength,//強チェリー
+	};
+
 	//設定の段階(数)
 	constexpr int SETTING = 6;
 

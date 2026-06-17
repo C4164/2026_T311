@@ -1,16 +1,8 @@
 #pragma once
+#include "Consts.h"
 
-//小役の種類
-enum MinorPrize
-{
-	bell,			//ベル
-	replay,			//リプレイ
-	chance,			//チャンス目
-	melon_weakness,	//弱スイカ
-	melon_strength,	//強スイカ
-	cherry_weakness,//弱チェリー
-	cherry_strength,//強チェリー
-};
+//名前の省略
+using Const::MinorPrize;
 
 class Flag 
 {
@@ -27,6 +19,4 @@ public:
 
 private:
 	MinorPrize currentMP;	//現在の小役
-
-	
 };
