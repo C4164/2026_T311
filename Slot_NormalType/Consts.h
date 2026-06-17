@@ -1,4 +1,5 @@
 #pragma once
+#include <array>
 
 namespace Const
 {
@@ -17,19 +18,16 @@ namespace Const
 	};
 
 	//設定の段階(数)
-	constexpr int SETTING = 6;
+	constexpr int SETTING = 5;
 
 	//設定別の小役確率[分子：16bit(65536)分の何か]
-	struct Probability
-	{
-		const int BELL[SETTING] = { 0,0,0,0,0,0 };				//ベル
-		const int REPLAY[SETTING] = { 0,0,0,0,0,0 };			//リプレイ
-		const int CHANCE[SETTING] = { 0,0,0,0,0,0 };			//チャンス目
-		const int MELON_WEAKNESS[SETTING] = { 0,0,0,0,0,0 };	//弱スイカ
-		const int MELON_STRENGTH_1[SETTING] = { 0,0,0,0,0,0 };	//強スイカ1
-		const int MELON_STRENGTH_2[SETTING] = { 0,0,0,0,0,0 };	//強スイカ2
-		const int CHERRY_WEAKNESS[SETTING] = { 0,0,0,0,0,0 };	//弱チェリー
-		const int CHERRY_STRENGTH_1[SETTING] = { 0,0,0,0,0,0 };	//強チェリー1
-		const int CHERRY_STRENGTH_2[SETTING] = { 0,0,0,0,0,0 };	//強チェリー2
-	};
+	constexpr std::array<int, SETTING> BELL{ 5372 };							//ベル
+	constexpr std::array<int, SETTING> REPLAY{ 8978 };							//リプレイ
+	constexpr std::array<int, SETTING> CHANCE{ 365 };							//チャンス目
+	constexpr std::array<int, SETTING> MELON_WEAKNESS{ 601,603,619,651,667 };	//弱スイカ
+	constexpr std::array<int, SETTING> MELON_STRENGTH_1{ 120,122,134,146,154 };	//強スイカ1
+	constexpr std::array<int, SETTING> MELON_STRENGTH_2{ 40 };					//強スイカ2
+	constexpr std::array<int, SETTING> CHERRY_WEAKNESS{ 600 };					//弱チェリー
+	constexpr std::array<int, SETTING> CHERRY_STRENGTH_1{ 252,260,268,276,284 };//強チェリー1
+	constexpr std::array<int, SETTING> CHERRY_STRENGTH_2{ 60 };					//強チェリー2
 }
