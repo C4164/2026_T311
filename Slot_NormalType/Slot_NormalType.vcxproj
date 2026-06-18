@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DescriptorHeap.cpp" />
     <ClCompile Include="Flag.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
@@ -141,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Consts.h" />
+    <ClInclude Include="DescriptorHeap.h" />
     <ClInclude Include="Flag.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Random.h" />
