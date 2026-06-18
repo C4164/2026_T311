@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DeviceManager.cpp" />
     <ClCompile Include="Flag.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
@@ -140,7 +141,9 @@
     <ClCompile Include="RootSignature.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ComPtr.h" />
     <ClInclude Include="Consts.h" />
+    <ClInclude Include="DeviceManager.h" />
     <ClInclude Include="Flag.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Random.h" />
