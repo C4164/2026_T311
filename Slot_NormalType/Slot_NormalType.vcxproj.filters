@@ -16,7 +16,7 @@
     <Filter Include="10_Core\Math">
       <UniqueIdentifier>{61dea1de-fbd2-445a-b60b-0f1e96deedc2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="10_Core\DirextX12">
+    <Filter Include="10_Core\MyEngine">
       <UniqueIdentifier>{0507b2f9-e35d-4a79-a16f-b3ee444318c4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -37,7 +37,13 @@
       <Filter>10_Core</Filter>
     </ClCompile>
     <ClCompile Include="RootSignature.cpp">
-      <Filter>10_Core\DirextX12</Filter>
+      <Filter>10_Core\MyEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Reel.cpp">
+      <Filter>30_GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceManager.cpp">
+      <Filter>10_Core\MyEngine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -63,7 +69,16 @@
       <Filter>10_Core</Filter>
     </ClInclude>
     <ClInclude Include="RootSignature.h">
-      <Filter>10_Core\DirextX12</Filter>
+      <Filter>10_Core\MyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Reel.h">
+      <Filter>30_GamePlay</Filter>
+    </ClInclude>
+    <ClInclude Include="ComPtr.h">
+      <Filter>10_Core\MyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceManager.h">
+      <Filter>10_Core\MyEngine</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
