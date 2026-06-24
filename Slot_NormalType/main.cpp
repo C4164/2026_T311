@@ -6,6 +6,13 @@
 #include "WindowManager.h"
 #include "Render.h"
 #include "GameContext.h"
+#include "DeviceManager.h"
+#include "RootSignature.h"
+#include "PipelineState.h"
+#include "DescriptorHeap_CBV_SRV.h"
+#include "GameObject.h"
+#include "Camera.h"
+#include "EngineDefs.h"
 
 //ゲームが実行中かどうかを示すフラグ
 //複数のスレッドからアクセスされるため、atomicを使用
@@ -139,15 +146,32 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	WindowManager::Instance().SetHWND(hwnd);
 	WindowManager::Instance().UpdateSize();
 
-	if (!Render::Instance().Init(hwnd, WindowManager::Instance().Width(), WindowManager::Instance().Height()))
-	{
-		MessageBoxA(nullptr, "Render Init Failed", "Error", MB_OK);
-		return -1;
-	}
+	Render& render = Render::Instance();
+
+	//Renderを初期化
+	render.Init(hwnd, WindowManager::Instance().Width(), WindowManager::Instance().Height());
+
+	auto device = DeviceManager::Instance().GetDevice();
+
+	//DescriptorHeapを初期化
+	DescriptorHeap_CBV_SRV::Instance().Init(device, Defs::DESCRIPTOR_COUNT);
+
+	//RootSignatureを初期化
+	RootSignature::Instance().Init(device);
+
+	//PipelineStateを初期化
+	PipelineState::Instance().Init(device, RootSignature::Instance().Get());
+
+	//Cameraを初期化
+	render.InitCameraCB(device);
+
+	GameObject* obj = new GameObject();
+	obj->Init(device, DescriptorHeap_CBV_SRV::Instance().GetCPUHandle(Defs::TRANSFORM_SLOT));
+	render.AddObject(obj);
 
 	//スレッドを起動
-	std::thread game(GameThread);
-	std::thread render(RenderThread);
+	std::thread gameThread(GameThread);
+	std::thread renderThread(RenderThread);
 
 	//MSGはメッセージを格納するための構造体
 	//そのインスタンスを作成し、０で初期化
@@ -176,9 +200,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 		Sleep(1);
 	}
 	//ゲームスレッドが処理を完了させるまで待機させる
-	game.join();
+	gameThread.join();
 	//描画スレッドが処理を完了させるまで待機させる
-	render.join();
+	renderThread.join();
 	//アプリケーションを正常に終了させる
 	return 0;
 }

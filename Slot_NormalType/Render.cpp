@@ -1,5 +1,6 @@
 #include "Render.h"
 #include "d3dx12.h"
+#include "EngineDefs.h"
 
 bool Render::Init(HWND hwnd, UINT _width, UINT _height)
 {
@@ -8,8 +9,8 @@ bool Render::Init(HWND hwnd, UINT _width, UINT _height)
 	height = _height;
 
 	//デバイス
-	if (!deviceManager.Init()) { return false; }
-	ID3D12Device* device = deviceManager.GetDevice();
+	if (!DeviceManager::Instance().Init()) { return false; }
+	ID3D12Device* device = DeviceManager::Instance().GetDevice();
 
 	//コマンドキュー
 	if (!commandQueue.Init(device)) { return false; }
@@ -25,7 +26,7 @@ bool Render::Init(HWND hwnd, UINT _width, UINT _height)
 
 	//スワップチェーン
 	if (!swapChain.Init(
-		deviceManager.GetFactory(),
+		DeviceManager::Instance().GetFactory(),
 		commandQueue.Get(),
 		hwnd,
 		width,
@@ -44,7 +45,7 @@ bool Render::Init(HWND hwnd, UINT _width, UINT _height)
 void Render::Draw()
 {
 	//それぞれのポインターを取得
-	ID3D12Device* device = deviceManager.GetDevice();
+	ID3D12Device* device = DeviceManager::Instance().GetDevice();
 	ID3D12CommandQueue* queue = commandQueue.Get();
 
 	//コマンドアロケータとコマンドリストをリセット
@@ -93,6 +94,32 @@ void Render::Draw()
 	//画面クリア
 	float clearColor[] = { 0.1f, 0.2f, 0.4f, 1.0f };
 	commandList.Get()->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
+
+	//ルートシグネチャ
+	if (RootSignature::Instance().Get()) { commandList.Get()->SetGraphicsRootSignature(RootSignature::Instance().Get()); }
+
+	//ディスクリプタヒープ
+	if (DescriptorHeap_CBV_SRV::Instance().GetHeap())
+	{
+		ID3D12DescriptorHeap* heaps[] = { DescriptorHeap_CBV_SRV::Instance().GetHeap() };
+		commandList.Get()->SetDescriptorHeaps(1, heaps);
+	}
+
+	//パイプラインエステート
+	if (PipelineState::Instance().Get()) { commandList.Get()->SetPipelineState(PipelineState::Instance().Get()); }
+
+	XMMATRIX vp = camera.GetViewProjMatrix();
+	XMMATRIX vpT = XMMatrixTranspose(vp);
+	cameraCB.Update(&vpT, sizeof(vpT));
+
+	//b1にバインド(b0 は GameObject の world)
+	commandList.Get()->SetGraphicsRootConstantBufferView(1, cameraCB.GetGPUAddress());
+
+	//GameObjectの描画
+	for (auto& obj : objects)
+	{
+		obj->Draw(commandList.Get());
+	}
 
 	//描画用から画面表示に切り替え
 	{

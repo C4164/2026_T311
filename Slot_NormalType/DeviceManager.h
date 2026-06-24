@@ -7,9 +7,12 @@
 class DeviceManager
 {
 public:
-	//コンストラクタとデストラクタ
-	DeviceManager() = default;
-	~DeviceManager() = default;
+	//シングルトン
+	static DeviceManager& Instance()
+	{
+		static DeviceManager instance;
+		return instance;
+	}
 
 	//初期化関数
 	bool Init();
@@ -19,6 +22,9 @@ public:
 	IDXGIFactory7* GetFactory()const { return factory.Get(); }
 
 private:
+	//コンストラクタ
+	DeviceManager() = default;
+
 	//生成関数
 	bool CreateFactory();
 	bool CreateDevice();

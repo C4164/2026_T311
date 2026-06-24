@@ -6,9 +6,12 @@
 class DescriptorHeap_CBV_SRV
 {
 public:
-    //コンストラクタとデストラクタ
-    DescriptorHeap_CBV_SRV() = default;
-    ~DescriptorHeap_CBV_SRV() = default;
+    //シングルトン
+    static DescriptorHeap_CBV_SRV& Instance()
+    {
+        static DescriptorHeap_CBV_SRV instance;
+        return instance;
+    }
 
     //初期化関数
     bool Init(ID3D12Device* device, UINT numDescriptors);
@@ -20,6 +23,9 @@ public:
     UINT GetDescriptorSize() const { return descriptorSize; }
 
 private:
+    //コンストラクタ
+    DescriptorHeap_CBV_SRV() = default;
+
     ComPtr<ID3D12DescriptorHeap> heap;
     UINT descriptorSize = 0;
 };

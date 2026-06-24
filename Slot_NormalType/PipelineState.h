@@ -6,11 +6,16 @@
 class PipelineState
 {
 public:
-    //コンストラクタとデストラクタ
-    PipelineState() = default;
-    ~PipelineState() = default;
+    //シングルトン
+    static PipelineState& Instance()
+    {
+        static PipelineState instance;
+        return instance;
+    }
 
     //初期化関数
+    bool Init(ID3D12Device* device, ID3D12RootSignature* rootSignature);
+
     bool Init(
         ID3D12Device* device,
         ID3D12RootSignature* rootSignature,
@@ -27,6 +32,9 @@ public:
     ID3D12PipelineState* Get() const { return pso.Get(); }
 
 private:
+    //コンストラクタ
+    PipelineState() = default;
+
     //パイプラインエステート
     ComPtr<ID3D12PipelineState> pso;
 };
