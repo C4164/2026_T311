@@ -81,6 +81,9 @@
     <ClCompile Include="IndexBuffer.cpp">
       <Filter>MyEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>MyEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Input.h">
@@ -150,6 +153,9 @@
       <Filter>MyEngine</Filter>
     </ClInclude>
     <ClInclude Include="IndexBuffer.h">
+      <Filter>MyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
       <Filter>MyEngine</Filter>
     </ClInclude>
   </ItemGroup>
