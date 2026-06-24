@@ -45,6 +45,24 @@
     <ClCompile Include="DeviceManager.cpp">
       <Filter>10_Core\MyEngine</Filter>
     </ClCompile>
+    <ClCompile Include="CommandQueue.cpp">
+      <Filter>10_Core\MyEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandAllocator.cpp">
+      <Filter>10_Core\MyEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandList.cpp">
+      <Filter>10_Core\MyEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Fence.cpp">
+      <Filter>10_Core\MyEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SwapChain.cpp">
+      <Filter>10_Core\MyEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTargetView.cpp">
+      <Filter>10_Core\MyEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Input.h">
@@ -78,6 +96,24 @@
       <Filter>10_Core\MyEngine</Filter>
     </ClInclude>
     <ClInclude Include="DeviceManager.h">
+      <Filter>10_Core\MyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandQueue.h">
+      <Filter>10_Core\MyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandAllocator.h">
+      <Filter>10_Core\MyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandList.h">
+      <Filter>10_Core\MyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Fence.h">
+      <Filter>10_Core\MyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="SwapChain.h">
+      <Filter>10_Core\MyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTargetView.h">
       <Filter>10_Core\MyEngine</Filter>
     </ClInclude>
   </ItemGroup>

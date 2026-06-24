@@ -143,26 +143,38 @@ d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CommandAllocator.cpp" />
+    <ClCompile Include="CommandList.cpp" />
+    <ClCompile Include="CommandQueue.cpp" />
     <ClCompile Include="DeviceManager.cpp" />
+    <ClCompile Include="Fence.cpp" />
     <ClCompile Include="Flag.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Reel.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="GameContext.cpp" />
+    <ClCompile Include="RenderTargetView.cpp" />
     <ClCompile Include="RootSignature.cpp" />
+    <ClCompile Include="SwapChain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CommandAllocator.h" />
+    <ClInclude Include="CommandList.h" />
+    <ClInclude Include="CommandQueue.h" />
     <ClInclude Include="ComPtr.h" />
     <ClInclude Include="Consts.h" />
     <ClInclude Include="DeviceManager.h" />
+    <ClInclude Include="Fence.h" />
     <ClInclude Include="Flag.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Reel.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="GameContext.h" />
+    <ClInclude Include="RenderTargetView.h" />
     <ClInclude Include="RootSignature.h" />
+    <ClInclude Include="SwapChain.h" />
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
