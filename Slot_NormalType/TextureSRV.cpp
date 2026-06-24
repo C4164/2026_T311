@@ -29,8 +29,36 @@ bool TextureSRV::Init(
     //ピクセルデータを取得
     const Image* img = scratch.GetImage(0, 0, 0);
 
+    //ミニマップを生成
+    ScratchImage mipChain;
+    hr = GenerateMipMaps(
+        scratch.GetImages(),
+        scratch.GetImageCount(),
+        scratch.GetMetadata(),
+        TEX_FILTER_DEFAULT,
+        0,
+        mipChain
+    );
+
+    if (SUCCEEDED(hr))
+    {
+        metadata = mipChain.GetMetadata();
+        img = mipChain.GetImage(0, 0, 0);
+    }
+    else
+    {
+        img = scratch.GetImage(0, 0, 0);
+    }
+
     //GPU専用メモリであるDEFAULTヒープ
     CD3DX12_HEAP_PROPERTIES heapProps(D3D12_HEAP_TYPE_DEFAULT);
+
+    //sRGBに対応させる
+    DXGI_FORMAT format = metadata.format;
+    if (format == DXGI_FORMAT_R8G8B8A8_UNORM)
+    {
+        format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
+    }
 
     //テクスチャの形状を指定
     CD3DX12_RESOURCE_DESC texDesc = CD3DX12_RESOURCE_DESC::Tex2D(
@@ -92,7 +120,7 @@ bool TextureSRV::Init(
 
     //SRVを作成
     D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
-    srvDesc.Format = metadata.format;
+    srvDesc.Format = format;
     srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
     srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
     srvDesc.Texture2D.MipLevels = (UINT)metadata.mipLevels;

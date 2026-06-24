@@ -2,39 +2,36 @@
 #include <d3d12.h>
 #include <d3d12shader.h>
 #include <d3dcompiler.h>
+#include "d3dx12.h"
 
 bool RootSignature::Init(ID3D12Device* device)
 {
     //CBV(定数バッファ)
-    D3D12_DESCRIPTOR_RANGE cbvRange = {};
-    cbvRange.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_CBV;
-    cbvRange.NumDescriptors = 1;
-    cbvRange.BaseShaderRegister = 0;
-    cbvRange.RegisterSpace = 0;
-    cbvRange.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+    CD3DX12_DESCRIPTOR_RANGE1 cbvRange;
+    cbvRange.Init(
+        D3D12_DESCRIPTOR_RANGE_TYPE_CBV,
+        1, 0,
+        0,
+        D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC
+    );
 
     //SRV(テクスチャー)
-    D3D12_DESCRIPTOR_RANGE srvRange = {};
-    srvRange.RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_SRV;
-    srvRange.NumDescriptors = 1;
-    srvRange.BaseShaderRegister = 0;
-    srvRange.RegisterSpace = 0;
-    srvRange.OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
+    CD3DX12_DESCRIPTOR_RANGE1 srvRange;
+    srvRange.Init(
+        D3D12_DESCRIPTOR_RANGE_TYPE_SRV,
+        1, 0,
+        0,
+        D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC
+    );
 
     //ルートパラメータ(CBV+SRV)
-    D3D12_ROOT_PARAMETER rootParams[2] = {};
+    CD3DX12_ROOT_PARAMETER1 rootParams[2];
 
     //CBV用のディスクリプタテーブル
-    rootParams[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
-    rootParams[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
-    rootParams[0].DescriptorTable.NumDescriptorRanges = 1;
-    rootParams[0].DescriptorTable.pDescriptorRanges = &cbvRange;
+    rootParams[0].InitAsDescriptorTable(1, &cbvRange, D3D12_SHADER_VISIBILITY_VERTEX);
 
     //SRV用のディスクリプタテーブル
-    rootParams[1].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
-    rootParams[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
-    rootParams[1].DescriptorTable.NumDescriptorRanges = 1;
-    rootParams[1].DescriptorTable.pDescriptorRanges = &srvRange;
+    rootParams[1].InitAsDescriptorTable(1, &srvRange, D3D12_SHADER_VISIBILITY_PIXEL);
 
     //サンプラー
     D3D12_STATIC_SAMPLER_DESC sampler = {};
@@ -46,23 +43,26 @@ bool RootSignature::Init(ID3D12Device* device)
     sampler.ShaderRegister = 0;
 
     //ルートシグネチャの情報をまとめる構造体
-    D3D12_ROOT_SIGNATURE_DESC desc = {};
-    desc.NumParameters = _countof(rootParams);
-    desc.pParameters = rootParams;
-    desc.NumStaticSamplers = 1;
-    desc.pStaticSamplers = &sampler;
+    CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC desc;
+    desc.Init_1_1(
+        _countof(rootParams),
+        rootParams,
+        1,
+        &sampler,
+        D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT
+    );
 
 	//バイナリ形式(二進数や生データ)に変換するためのバッファ
 	ComPtr<ID3DBlob> signatureBlob;
 	ComPtr<ID3DBlob> errorBlob;
 
 	//バイナリ形式に変換
-	HRESULT hr = D3D12SerializeRootSignature(
-		&desc,
-		D3D_ROOT_SIGNATURE_VERSION_1,
-		&signatureBlob,
-		&errorBlob
-	);
+    HRESULT hr = D3DX12SerializeVersionedRootSignature(
+        &desc,
+        D3D_ROOT_SIGNATURE_VERSION_1_1,
+        &signatureBlob,
+        &errorBlob
+    );
 
 	//失敗したらfalseを返して終了
 	if (FAILED(hr)) { return false; }

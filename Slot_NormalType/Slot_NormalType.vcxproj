@@ -154,6 +154,7 @@ d3dcompiler.lib;DirectXTex.lib;%(AdditionalDependencies)</AdditionalDependencies
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="PipelineState.cpp" />
     <ClCompile Include="Reel.cpp" />
@@ -178,6 +179,7 @@ d3dcompiler.lib;DirectXTex.lib;%(AdditionalDependencies)</AdditionalDependencies
     <ClInclude Include="Flag.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="PipelineState.h" />
     <ClInclude Include="Random.h" />

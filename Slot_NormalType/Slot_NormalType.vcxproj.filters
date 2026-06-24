@@ -84,6 +84,9 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>MyEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>MyEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Input.h">
@@ -156,6 +159,9 @@
       <Filter>MyEngine</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
+      <Filter>MyEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
       <Filter>MyEngine</Filter>
     </ClInclude>
   </ItemGroup>

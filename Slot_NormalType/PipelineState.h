@@ -14,9 +14,13 @@ public:
     bool Init(
         ID3D12Device* device,
         ID3D12RootSignature* rootSignature,
+        const D3D12_INPUT_ELEMENT_DESC* inputLayout,
+        UINT inputLayoutCount,
         ID3DBlob* vsBlob,
         ID3DBlob* psBlob,
-        DXGI_FORMAT rtvFormat
+        DXGI_FORMAT rtvFormat,
+        bool enableDepth = false,
+        bool enableAlphaBlend = false
     );
 
     //ÉQÉbÉ^Å[
