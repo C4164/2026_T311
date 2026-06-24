@@ -151,6 +151,7 @@ d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClCompile Include="Flag.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PipelineState.cpp" />
     <ClCompile Include="Reel.cpp" />
     <ClCompile Include="Render.cpp" />
     <ClCompile Include="GameContext.cpp" />
@@ -169,6 +170,7 @@ d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
     <ClInclude Include="Fence.h" />
     <ClInclude Include="Flag.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="PipelineState.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Reel.h" />
     <ClInclude Include="Render.h" />
