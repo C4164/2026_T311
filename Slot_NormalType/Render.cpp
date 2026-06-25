@@ -144,3 +144,18 @@ void Render::Draw()
 	swapChain.Get()->Present(1, 0);
 }
 
+void Render::AddObject(GameObject* obj, Mesh* mesh, TextureSRV* texture, Material* mat)
+{
+	auto device = DeviceManager::Instance().GetDevice();
+	mesh->Init(device, commandList.Get());
+	texture->Init(device, commandList.Get());
+	mat->Init(device);
+
+	UINT slot = nextSlot++;
+
+	obj->Init(
+		DeviceManager::Instance().GetDevice(),
+		DescriptorHeap_CBV_SRV::Instance().GetCPUHandle(slot));
+
+	objects.push_back(obj);
+}

@@ -38,23 +38,7 @@ public:
 	//•`‰æŠÖ”
 	void Draw();
 
-	void DebugDraw();
-
-	void AddObject(GameObject* obj, Mesh* mesh, TextureSRV* texture, Material* mat)
-	{
-		auto device = DeviceManager::Instance().GetDevice();
-		mesh->Init(device, commandList.Get());
-		texture->Init(device, commandList.Get());
-		mat->Init(device);
-
-		UINT slot = nextSlot++;
-
-		obj->Init(
-			DeviceManager::Instance().GetDevice(),
-			DescriptorHeap_CBV_SRV::Instance().GetCPUHandle(slot));
-
-		objects.push_back(obj);
-	}
+	void AddObject(GameObject* obj, Mesh* mesh, TextureSRV* texture, Material* mat);
 
 	void RegisterTexture(TextureSRV* tex)
 	{
