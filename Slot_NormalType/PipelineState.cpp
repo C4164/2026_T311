@@ -17,14 +17,14 @@ bool PipelineState::Init(ID3D12Device* device, ID3D12RootSignature* rootSignatur
 			0
 		},
 
-		{ 
-			"TEXCOORD", 
-			0, 
-			DXGI_FORMAT_R32G32_FLOAT, 
-			0, 
+		{
+			"TEXCOORD",
+			0,
+			DXGI_FORMAT_R32G32_FLOAT,
+			0,
 			12,
-		    D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 
-		    0 
+			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
+			0
 		}
 	};
 
@@ -39,9 +39,9 @@ bool PipelineState::Init(ID3D12Device* device, ID3D12RootSignature* rootSignatur
 		_countof(inputLayout),
 		vsBlob,
 		psBlob,
-		DXGI_FORMAT_R8G8B8A8_UNORM, // RTV フォーマット
-		false,                      // Depth 無効
-		false                       // AlphaBlend 無効
+		DXGI_FORMAT_R8G8B8A8_UNORM, //RTV フォーマット
+		false,                      //Depth 無効
+		true                        //AlphaBlend有効
 	);
 }
 
@@ -101,5 +101,10 @@ bool PipelineState::Init(
 
 	//パイプラインステートを作成
 	HRESULT hr = device->CreateGraphicsPipelineState(&desc, IID_PPV_ARGS(&pso));
+	if (FAILED(hr))
+	{
+		OutputDebugStringA("PSO creation failed!\n");
+	}
+
 	return SUCCEEDED(hr);
 }

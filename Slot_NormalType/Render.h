@@ -9,7 +9,7 @@
 #include "RenderTargetView.h"
 #include "RootSignature.h"
 #include "PipelineState.h"
-#include "DescriptorHeap_CBV_SRV.h"
+#include "DescriptorHeap_SRV.h"
 #include "GameObject.h"
 #include "Camera.h"
 #include "EngineDefs.h"
@@ -32,28 +32,45 @@ public:
 	void InitCameraCB(ID3D12Device* device)
 	{
 		camera.aspect = (float)width / (float)height;
-		cameraCB.Init(device, sizeof(XMMATRIX), DescriptorHeap_CBV_SRV::Instance().GetCPUHandle(Defs::CAMERA_SLOT));
+		cameraCB.Init(device, sizeof(XMMATRIX));
 	}
 
 	//描画関数
 	void Draw();
 
-	void DebugDraw();
-
-	void AddObject(GameObject* obj, Mesh* mesh, TextureSRV* texture, Material* mat)
+	void AddObject(GameObject* obj, Mesh* mesh, TextureSRV* texture, Material* mat) 
 	{
-		auto device = DeviceManager::Instance().GetDevice();
-		mesh->Init(device, commandList.Get());
-		texture->Init(device, commandList.Get());
-		mat->Init(device);
-
-		UINT slot = nextSlot++;
-
-		obj->Init(
-			DeviceManager::Instance().GetDevice(),
-			DescriptorHeap_CBV_SRV::Instance().GetCPUHandle(slot));
-
 		objects.push_back(obj);
+	}
+
+	void InitSceneObjects()
+	{
+		//それぞれのポインターを取得
+		ID3D12Device* device = DeviceManager::Instance().GetDevice();
+		ID3D12CommandQueue* queue = commandQueue.Get();
+
+		//コマンドアロケータとコマンドリストをリセット
+		commandAllocator.Get()->Reset();
+		commandList.Reset(commandAllocator.Get());
+
+		for (auto& obj : objects)
+		{
+			obj->GetMesh()->Init(device, commandList.Get());
+			obj->GetMaterial()->Init(device);
+			obj->GetMaterial()->GetTexture()->Init(device, commandList.Get());
+			obj->Init(DeviceManager::Instance().GetDevice());
+		}
+
+		//コマンドリストを閉じて書き込み終了
+		commandList.Close();
+
+		//命令をGPUに送信
+		ID3D12CommandList* lists[] = { commandList.Get() };
+		queue->ExecuteCommandLists(1, lists);
+
+		//GPUの完了を待つ
+		fence.Signal(queue);
+		fence.Wait();
 	}
 
 	void RegisterTexture(TextureSRV* tex)
