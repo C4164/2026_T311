@@ -1,20 +1,31 @@
 #pragma once
 #include "Scene.h"
-#include "Consts.h"
+#include "Reel.h"
+#include "UI.h"
 
 class GameScene : public Scene
 {
 public:
-    GameScene() = default;
-    ~GameScene() override = default;
+	//ƒVƒ“ƒOƒ‹ƒgƒ“
+	static GameScene& Instance()
+	{
+		static GameScene instance;
+		return instance;
+	}
 
-    void Init() override;
-    void Update(float deltaTime) override;
+	void Init() override;
+	void Update(float deltaTime) override;
+	void DrawObjects(ID3D12GraphicsCommandList* commandList) override;
 
 private:
-    std::array<GameObject*, Const::REELSYMBOL_NUM>leftReelObjects;
-    std::array<GameObject*, Const::REELSYMBOL_NUM>centerReelObjects;
-    std::array<GameObject*, Const::REELSYMBOL_NUM>rightReelObjects;
+	GameScene() = default;
+	~GameScene() = default;
+
+	Reel reel;
+	UI ui;
+
+	D3D12_RECT reelScissor = {};
+	D3D12_RECT fullScissor = {};
 };
 
 

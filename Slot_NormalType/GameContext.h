@@ -12,9 +12,8 @@ public:
 
 	void Init();
 	void Update(float deltaTime);
+	void Draw(ID3D12GraphicsCommandList* commandList)const;
 
 private:
 	GameContext() = default;
-
-	GameScene gameScene = {};
 };

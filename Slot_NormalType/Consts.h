@@ -122,8 +122,10 @@ namespace Const
 	};
 
 	//図柄の表示間隔
-	//縦幅
-	constexpr float SYMBOLDISTANCE_WIDTH = 1.5f;
-	//横幅
-	constexpr float SYMBOLDISTANCE_HEIGHT = 1.25f;
+	constexpr float SYMBOLDISTANCE_WIDTH = 1.5f;	//縦幅
+	constexpr float SYMBOLDISTANCE_HEIGHT = 1.25f;	//横幅
+
+	constexpr float REEL_SPEED = 20.0f;
+	constexpr float WAIT_TIME = 5.0f;
+	constexpr float REEL_STOPINTERVAL_TIME = 0.5f;
 }

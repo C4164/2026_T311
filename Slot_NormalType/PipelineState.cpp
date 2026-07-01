@@ -2,44 +2,67 @@
 #include "d3dx12.h"
 #include "Shader.h"
 
-bool PipelineState::Init(ID3D12Device* device, ID3D12RootSignature* rootSignature)
+static const D3D12_INPUT_ELEMENT_DESC spriteLayout[] =
 {
-	//入力レイアウト
-	static const D3D12_INPUT_ELEMENT_DESC inputLayout[] =
+	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,
+	  D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+
+	{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12,
+	  D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+};
+
+static const D3D12_INPUT_ELEMENT_DESC lineLayout[] =
+{
+	{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,
+	  D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+
+	{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12,
+	  D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
+};
+
+bool PipelineState::Init(
+	ID3D12Device* device,
+	ID3D12RootSignature* rootSignature,
+	D3D12_PRIMITIVE_TOPOLOGY_TYPE primitiveType)
+{
+	ID3DBlob* vsBlob = nullptr;
+	ID3DBlob* psBlob = nullptr;
+
+	const D3D12_INPUT_ELEMENT_DESC* layout = nullptr;
+	UINT layoutCount = 0;
+
+	if (primitiveType == D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE)
 	{
-		{
-			"POSITION",
-			0,
-			DXGI_FORMAT_R32G32B32_FLOAT,
-			0,
-			0,
-			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
-			0
-		},
+		layout = spriteLayout;
+		layoutCount = _countof(spriteLayout);
+		//シェーダー読み込み
+		vsBlob = Shader::Instance().LoadVS("Shaders/VS.cso");
+		psBlob = Shader::Instance().LoadPS("Shaders/PS.cso");
+	}
+	else if (primitiveType == D3D12_PRIMITIVE_TOPOLOGY_TYPE_LINE)
+	{
+		layout = lineLayout;
+		layoutCount = _countof(lineLayout);
+		//シェーダー読み込み
+		vsBlob = Shader::Instance().LoadVS("Shaders/LineVS.cso");
+		psBlob = Shader::Instance().LoadPS("Shaders/LinePS.cso");
+	}
 
-		{
-			"TEXCOORD",
-			0,
-			DXGI_FORMAT_R32G32_FLOAT,
-			0,
-			12,
-			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,
-			0
-		}
-	};
-
-	//シェーダー読み込み
-	ID3DBlob* vsBlob = Shader::Instance().LoadVS("Shaders/VS.cso");
-	ID3DBlob* psBlob = Shader::Instance().LoadPS("Shaders/PS.cso");
+	if (!vsBlob || !psBlob)
+	{
+		OutputDebugStringA("Shader load failed! PSO cannot be created.\n");
+		return false;
+	}
 
 	return Init(
 		device,
 		rootSignature,
-		inputLayout,
-		_countof(inputLayout),
+		layout,
+		layoutCount,
 		vsBlob,
 		psBlob,
 		DXGI_FORMAT_R8G8B8A8_UNORM, //RTV フォーマット
+		primitiveType,
 		false,                      //Depth 無効
 		true                        //AlphaBlend有効
 	);
@@ -53,6 +76,7 @@ bool PipelineState::Init(
 	ID3DBlob* vsBlob,
 	ID3DBlob* psBlob,
 	DXGI_FORMAT rtvFormat,
+	D3D12_PRIMITIVE_TOPOLOGY_TYPE primitiveType,
 	bool enableDepth,
 	bool enableAlphaBlend
 )
@@ -93,7 +117,7 @@ bool PipelineState::Init(
 	//サンプルマスク
 	desc.SampleMask = UINT_MAX;
 	//プリミティブタイプ
-	desc.PrimitiveTopologyType = D3D12_PRIMITIVE_TOPOLOGY_TYPE_TRIANGLE;
+	desc.PrimitiveTopologyType = primitiveType;
 	//レンダーターゲット
 	desc.NumRenderTargets = 1;
 	desc.RTVFormats[0] = rtvFormat;

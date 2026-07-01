@@ -14,18 +14,47 @@ public:
     //毎フレーム更新
     virtual void Update(float deltaTime) {}
 
-    //毎フレーム描画）
-    virtual void Render() {}
+    //毎フレーム描画
+    virtual void DrawBackGround(ID3D12GraphicsCommandList* commandList)
+    {
+        for (auto o : backGroundObjects)
+        {
+            o->Draw(commandList);
+        }
+    }
+
+    virtual void DrawObjects(ID3D12GraphicsCommandList* commandList) 
+    {
+        for (auto o : gameObjects) 
+        {
+            o->Draw(commandList);
+        }
+    }
+
+    virtual void DrawUI(ID3D12GraphicsCommandList* commandList)
+    {
+        for (auto o : UIObjects)
+        {
+            o->Draw(commandList);
+        }
+    }
 
     //シーン終了時に呼ばれる
     virtual void End() {}
 
-protected:
-    std::vector<GameObject*> objects;
-
-    void AddObject(GameObject* obj)
+    void AddGameObject(GameObject* obj)
     {
-        objects.push_back(obj);
+        gameObjects.push_back(obj);
     }
+
+    void AddUIObject(GameObject* obj)
+    {
+        UIObjects.push_back(obj);
+    }
+
+protected:
+    std::vector<GameObject*> backGroundObjects;
+    std::vector<GameObject*> gameObjects;
+    std::vector<GameObject*> UIObjects;
 };
 

@@ -29,6 +29,7 @@ public:
 	//•`‰æŠÖ”
 	void Draw(ID3D12GraphicsCommandList* commandList);
 
+
 private:
 	VertexBuffer vertexBuffer;
 	IndexBuffer indexBuffer;

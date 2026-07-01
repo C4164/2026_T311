@@ -7,4 +7,7 @@ namespace Defs
 	static const UINT CAMERA_SLOT = 1;
 	static const UINT TEXTURE_SLOT = 2;
 	static const UINT DESCRIPTOR_COUNT = 128;
+
+	static const UINT MESH_TYPE_PRIMITIVE = 0;
+	static const UINT MESH_TYPE_LINE = 1;
 }

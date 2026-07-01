@@ -1,6 +1,7 @@
 Texture2D tex : register(t0);
 SamplerState smp : register(s0);
 
+
 struct PSInput
 {
     float4 pos : SV_POSITION;

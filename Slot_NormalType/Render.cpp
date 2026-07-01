@@ -1,6 +1,7 @@
 #include "Render.h"
 #include "d3dx12.h"
 #include "EngineDefs.h"
+#include "GameContext.h"
 
 bool Render::Init(HWND hwnd, UINT _width, UINT _height)
 {
@@ -112,10 +113,7 @@ void Render::Draw()
 	commandList.Get()->SetGraphicsRootConstantBufferView(1, cameraCB.GetGPUAddress());
 
 	//GameObject‚Ì•`‰æ
-	for (auto& obj : objects)
-	{
-		obj->Draw(commandList.Get());
-	}
+	GameContext::Instance().Draw(commandList.Get());
 
 	//•`‰æ—p‚©‚ç‰æ–Ê•\¦‚ÉØ‚è‘Ö‚¦
 	{

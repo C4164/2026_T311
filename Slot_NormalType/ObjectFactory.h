@@ -8,4 +8,9 @@ public:
 		const XMFLOAT3& pos,
 		const XMFLOAT3& scale
 	);
+
+	static GameObject* CreateLineObject(
+		const XMFLOAT3& pos,
+		const XMFLOAT3& scale
+	);
 };

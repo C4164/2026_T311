@@ -1,12 +1,6 @@
 #include "Material.h"
 #include "RootSignature.h"
 
-bool Material::Init(ID3D12Device* device)
-{
-    if (!pso) { return false; }
-
-    return pso->Init(device, RootSignature::Instance().Get());
-}
 
 void Material::Bind(ID3D12GraphicsCommandList* cmdList)
 {
@@ -24,6 +18,7 @@ void Material::Bind(ID3D12GraphicsCommandList* cmdList)
     }
 
     cmdList->SetGraphicsRootSignature(rs);
+    cmdList->IASetPrimitiveTopology(topology);
     cmdList->SetPipelineState(pso->Get());
 
     //テクスチャをセット

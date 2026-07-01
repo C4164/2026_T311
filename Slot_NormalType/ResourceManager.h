@@ -17,12 +17,18 @@ public:
 	static Mesh* GetQuadMesh();
 	static PipelineState* GetSpritePSO();
 
+	static Mesh* GetLineMesh();
+	static PipelineState* GetLinePSO();
+
 private:
 	ResourceManager() = default;
 
 	static Mesh* CreateQuadMesh();
+	static Mesh* CreateLineMesh();
 
 	Mesh* quadMesh = nullptr;
+	Mesh* lineMesh = nullptr;
 	PipelineState* spritePSO = nullptr;
+	PipelineState* linePSO = nullptr;
 	std::unordered_map<std::wstring, TextureSRV*> textures;
 };
