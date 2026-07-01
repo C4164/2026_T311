@@ -108,6 +108,9 @@
     <ClCompile Include="ResourceManager.cpp">
       <Filter>MyEngine</Filter>
     </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>30_GamePlay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Input.h">
@@ -214,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>20_Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>30_GamePlay</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

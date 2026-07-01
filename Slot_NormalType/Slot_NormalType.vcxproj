@@ -90,7 +90,8 @@ d3dcompiler.lib;DirectXTex.lib;%(AdditionalDependencies)</AdditionalDependencies
     <PreBuildEvent>
       <Command>"C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\dxc.exe" -T vs_6_0 -E main -Fo "$(ProjectDir)Shaders\VS.cso" "$(ProjectDir)Shaders\VS.fx"
 "C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\dxc.exe" -T ps_6_0 -E main -Fo "$(ProjectDir)Shaders\PS.cso" "$(ProjectDir)Shaders\PS.fx"
-</Command>
+"C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\dxc.exe" -T vs_6_0 -E main -Fo "$(ProjectDir)Shaders\LineVS.cso" "$(ProjectDir)Shaders\LineVS.fx"
+"C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\dxc.exe" -T ps_6_0 -E main -Fo "$(ProjectDir)Shaders\LinePS.cso" "$(ProjectDir)Shaders\LinePS.fx"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -115,7 +116,8 @@ d3dcompiler.lib;DirectXTex.lib;%(AdditionalDependencies)</AdditionalDependencies
     <PreBuildEvent>
       <Command>"C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\dxc.exe" -T vs_6_0 -E main -Fo "$(ProjectDir)Shaders\VS.cso" "$(ProjectDir)Shaders\VS.fx"
 "C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\dxc.exe" -T ps_6_0 -E main -Fo "$(ProjectDir)Shaders\PS.cso" "$(ProjectDir)Shaders\PS.fx"
-</Command>
+"C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\dxc.exe" -T vs_6_0 -E main -Fo "$(ProjectDir)Shaders\LineVS.cso" "$(ProjectDir)Shaders\LineVS.fx"
+"C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\dxc.exe" -T ps_6_0 -E main -Fo "$(ProjectDir)Shaders\LinePS.cso" "$(ProjectDir)Shaders\LinePS.fx"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -138,7 +140,8 @@ d3dcompiler.lib;DirectXTex.lib;%(AdditionalDependencies)</AdditionalDependencies
     <PreBuildEvent>
       <Command>"C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\dxc.exe" -T vs_6_0 -E main -Fo "$(ProjectDir)Shaders\VS.cso" "$(ProjectDir)Shaders\VS.fx"
 "C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\dxc.exe" -T ps_6_0 -E main -Fo "$(ProjectDir)Shaders\PS.cso" "$(ProjectDir)Shaders\PS.fx"
-</Command>
+"C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\dxc.exe" -T vs_6_0 -E main -Fo "$(ProjectDir)Shaders\LineVS.cso" "$(ProjectDir)Shaders\LineVS.fx"
+"C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\dxc.exe" -T ps_6_0 -E main -Fo "$(ProjectDir)Shaders\LinePS.cso" "$(ProjectDir)Shaders\LinePS.fx"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -163,7 +166,8 @@ d3dcompiler.lib;DirectXTex.lib;%(AdditionalDependencies)</AdditionalDependencies
     <PreBuildEvent>
       <Command>"C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\dxc.exe" -T vs_6_0 -E main -Fo "$(ProjectDir)Shaders\VS.cso" "$(ProjectDir)Shaders\VS.fx"
 "C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\dxc.exe" -T ps_6_0 -E main -Fo "$(ProjectDir)Shaders\PS.cso" "$(ProjectDir)Shaders\PS.fx"
-</Command>
+"C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\dxc.exe" -T vs_6_0 -E main -Fo "$(ProjectDir)Shaders\LineVS.cso" "$(ProjectDir)Shaders\LineVS.fx"
+"C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\dxc.exe" -T ps_6_0 -E main -Fo "$(ProjectDir)Shaders\LinePS.cso" "$(ProjectDir)Shaders\LinePS.fx"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -193,6 +197,7 @@ d3dcompiler.lib;DirectXTex.lib;%(AdditionalDependencies)</AdditionalDependencies
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SwapChain.cpp" />
     <ClCompile Include="TextureSRV.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +234,7 @@ d3dcompiler.lib;DirectXTex.lib;%(AdditionalDependencies)</AdditionalDependencies
     <ClInclude Include="SwapChain.h" />
     <ClInclude Include="TextureSRV.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="WindowManager.h" />
   </ItemGroup>

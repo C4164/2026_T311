@@ -11,6 +11,8 @@ namespace Resource
 	static const std::wstring sevenPath = L"Data/Texture/seven.png";
 	static const std::wstring barPath = L"Data/Texture/bar.png";
 
+	static const std::wstring whitePath = L"Data/Texture/white.png";
+
 	static const std::array<const std::wstring, Const::REELSYMBOL_NUM> SymbolPaths =
 	{
 		Resource::blankPath,

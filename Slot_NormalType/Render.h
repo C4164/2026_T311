@@ -38,11 +38,8 @@ public:
 	//ï`âÊä÷êî
 	void Draw();
 
-	void AddObject(GameObject* obj) 
-	{
-		objects.push_back(obj);
-	}
-
+	UINT GetWidth() const { return width; }
+	UINT GetHeight() const { return height; }
 
 private:
 	Render() = default;
@@ -53,8 +50,6 @@ private:
 	Fence            fence;
 	SwapChain        swapChain;
 	RenderTargetView rtv;
-
-	std::vector<GameObject*> objects;
 
 	ConstantBuffer cameraCB;
 	Camera camera;

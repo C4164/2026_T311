@@ -26,6 +26,7 @@ public:
     //ゲッター
     Mesh* GetMesh()const { return mesh; }
     Material* GetMaterial()const { return material; }
+
     //セッター
     void SetMesh(Mesh* m) { mesh = m; }
     void SetMaterial(Material* mat) { material = mat; }

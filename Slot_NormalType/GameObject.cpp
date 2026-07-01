@@ -1,21 +1,22 @@
 #include "GameObject.h"
+#include "EngineDefs.h"
 
 void GameObject::Draw(ID3D12GraphicsCommandList* commandList)
 {
-    if (!mesh || !material) return;
+	if (!mesh || !material) return;
 
-    //TransformからWorldMatrixを作成
-    XMMATRIX world = transform.GetMatrix();
-    XMMATRIX worldT = XMMatrixTranspose(world);
+	//TransformからWorldMatrixを作成
+	XMMATRIX world = transform.GetMatrix();
+	XMMATRIX worldT = XMMatrixTranspose(world);
 
-    //CBVに書き込む
-    cb.Update(&worldT, sizeof(worldT));
+	//CBVに書き込む
+	cb.Update(&worldT, sizeof(worldT));
 
-    //b0にバインド
-    commandList->SetGraphicsRootConstantBufferView(0, cb.GetGPUAddress());
+	//b0にバインド
+	commandList->SetGraphicsRootConstantBufferView(0, cb.GetGPUAddress());
 
-    //Material→Meshの順で描画
-    material->Bind(commandList);
-    mesh->Draw(commandList);
+	//Material→Meshの順で描画
+	material->Bind(commandList);
+	mesh->Draw(commandList);
 }
 

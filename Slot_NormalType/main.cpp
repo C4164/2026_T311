@@ -80,7 +80,7 @@ std::atomic<bool> running = true;
 /// <param name="lPram">メッセージの追加情報</param>
 //ウィンドウプロシージャはOSから多くのメッセージを受け取る
 //つまり、OSとゲームエンジンの境界線となる部分
-LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPram)
+LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
 	{
@@ -99,7 +99,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lPram)
 		return 0;
 	}
 	//デフォルトのウィンドウプロシージャを呼び出す
-	return DefWindowProc(hwnd, msg, wParam, lPram);
+	return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
 /// <summary>
@@ -175,6 +175,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 	const float deltaTime = 1.0f / 60.0f;
 	auto prev = std::chrono::high_resolution_clock::now();
 	float accumulator = 0.0f;
+	//入力状態をリセット
+	Input::Reset();
 
 	//MSGはメッセージを格納するための構造体
 	//そのインスタンスを作成し、０で初期化
@@ -208,13 +210,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 		//60FPS更新
 		while (accumulator >= deltaTime)
 		{
-			Input::Reset();
 			GameContext::Instance().Update(deltaTime);
 			accumulator -= deltaTime;
 		}
 
 		//描画
 		render.Draw();
+
+		//入力状態をリセット
+		Input::Reset();
 
 		//CPUを1ミリ秒休ませる
 		//CPUの無駄な消費を抑えられる
